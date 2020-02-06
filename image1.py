@@ -29,7 +29,7 @@ pathOut = 'video.avi'
 fps = 0.75
 out = cv2.VideoWriter(pathOut,cv2.VideoWriter_fourcc(*'DIVX'), fps, size)
 
-src1 = cv2.imread(cv2.samples.findFile('src/0.jpg'))
+src1 = frames_video[0]
 out.write(src1)
 for _ in range(count-1):
     src2 = frames_video[_+1]
