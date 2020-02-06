@@ -18,12 +18,12 @@ def openFile():
     global imagenPath
     global panel2
     imagenPath = filedialog.askopenfilename(
-        initialdir="Path Where the dialog should open first", title="Select file")
+        initialdir="Users\Arturo Lessieur\Pictures", title="Seleccionar archivo")
     img = Image.open(imagenPath)
     img = img.resize((600, 300), Image.ANTIALIAS)
     photoImage = ImageTk.PhotoImage(img)
     panel = Label(interface, image=photoImage)
-    panel.grid(column=2, row=1, pady=1, columnspan=2)
+    panel.grid(column=2, row=1, pady=2, columnspan=2)
 
     interface.mainloop()
 
@@ -62,14 +62,14 @@ def brightness():
             for c in range(image.shape[2]):
                 new_image[y, x, c] = np.clip(
                     alpha*image[y, x, c] + beta, 0, 255)
-    # cv.imshow('Original Image', image)
-    # cv.imshow('New Image', new_image)
+    #cv.imshow('Original Image', image)
+    #cv.imshow('New Image', new_image)
     cv.imwrite("new_image.jpg", new_image)
     img = Image.open("new_image.jpg")
     img = img.resize((600, 300), Image.ANTIALIAS)
     photoImage = ImageTk.PhotoImage(img)
     panel2 = Label(interface, image=photoImage)
-    panel2.grid(column=2, row=2, pady=1, columnspan=3)
+    panel2.grid(column=2, row=2, pady=2, columnspan=2)
     interface.mainloop()
     os.remove("new_image.jpg")
     # Wait until user press some key
