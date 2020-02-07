@@ -1,54 +1,50 @@
 import cv2
 import numpy as np
-vidcap = cv2.VideoCapture('1.avi')
-def getFrame(sec,frames_video):
-    vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
-    hasFrames,image = vidcap.read()
-    if hasFrames:
-        height, width, layers = image.shape
-        global size
-        size = (width,height)
-        frames_video.append(image)
-       
-        #cv2.imwrite("src/"+str(count)+".jpg", image)     # save frame as JPG file
-    return hasFrames
-frames_video=[]
-sec = 0
-frameRate = 0.2 #//it will capture image in each 0.5 second
-count=0
-success = getFrame(sec,frames_video)
 
-while success:
-    count = count + 1
-    sec = sec + frameRate
-    sec = round(sec, 2)
-    success = getFrame(sec,frames_video)
+from tkinter import *
+from tkinter import filedialog
+interface = Tk()
+pathIn='joker.mp4'
 
-alpha = 0.9675
-pathOut = 'video.avi'
-fps = 15
-out = cv2.VideoWriter(pathOut,cv2.VideoWriter_fourcc(*'DIVX'), fps, size)
 
-src1 = frames_video[0]
-out.write(src1)
-for _ in range(count-1):
-    src2 = frames_video[_+1]
-    # [load]
-    if src1 is None:
-        print("Error loading src1")
-        exit(-1)
-    elif src2 is None:
-        print("Error loading src2")
-        exit(-1)
-    # [blend_images]
+def process_video():
+    sec = 0
+    frameRate = 0.2
+    alpha = 0.9675
     beta = (1.0 - alpha)
-    dst = np.uint8(alpha*(src1)+beta*(src2))
-    # [blend_images]
-    src1=dst
-    # [display]
-    out.write(dst)
-    # cv2.imshow('dst', dst)
-    # cv2.waitKey(0)
-    # # [display]
-    # cv2.destroyAllWindows()
-out.release()
+    pathOut = 'video.avi'
+    fps = 15
+    vidcap = cv2.VideoCapture(pathIn)
+    vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
+    success,image = vidcap.read()
+    if success:
+        height, width, layers = image.shape
+        size = (width,height)
+        out = cv2.VideoWriter(pathOut,cv2.VideoWriter_fourcc(*'DIVX'), fps, size)
+        global src1
+        src1 = image
+        out.write(src1)
+    else:
+        print('Archivo incorrecto')
+    while success:
+        sec = round(sec + frameRate, 2)
+        vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
+        success,image = vidcap.read()
+        if success:
+            src2 = image
+            dst = np.uint8(alpha*(src1)+beta*(src2))
+            src1=dst
+            out.write(dst)
+    out.release()
+    print('Listo')
+
+def openFile():
+    imagenPath = filedialog.askopenfilename(title="Seleccionar archivo de video")
+    pathIn=imagenPath
+    interface.mainloop()
+
+Button(interface, text='Seleccionar video',
+       command=openFile).grid(row=1, column=1)
+Button(interface, text='Procesar video',
+       command=process_video).grid(row=1, column=2)
+interface.mainloop()
