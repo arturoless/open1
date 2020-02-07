@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-vidcap = cv2.VideoCapture('1.mp4')
+vidcap = cv2.VideoCapture('1.avi')
 def getFrame(sec,frames_video):
     vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
     hasFrames,image = vidcap.read()
@@ -14,7 +14,7 @@ def getFrame(sec,frames_video):
     return hasFrames
 frames_video=[]
 sec = 0
-frameRate = 0.5 #//it will capture image in each 0.5 second
+frameRate = 0.2 #//it will capture image in each 0.5 second
 count=0
 success = getFrame(sec,frames_video)
 
@@ -24,9 +24,9 @@ while success:
     sec = round(sec, 2)
     success = getFrame(sec,frames_video)
 
-alpha = 0.93
+alpha = 0.9675
 pathOut = 'video.avi'
-fps = 0.75
+fps = 15
 out = cv2.VideoWriter(pathOut,cv2.VideoWriter_fourcc(*'DIVX'), fps, size)
 
 src1 = frames_video[0]
