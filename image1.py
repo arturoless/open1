@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import time
 
 from tkinter import *
 from tkinter import filedialog
@@ -35,10 +36,13 @@ def process_video():
             dst = np.uint8(alpha*(src1)+beta*(src2))
             src1=dst
             out.write(dst)
+            
     out.release()
     print('Listo')
+    
 
 def openFile():
+    global pathIn
     imagenPath = filedialog.askopenfilename(title="Seleccionar archivo de video")
     pathIn=imagenPath
     interface.mainloop()
