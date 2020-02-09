@@ -3,7 +3,7 @@ import sys
 import numpy as np
 
 
-def alinear(imagenFuente, frame, fragmento, r):
+def alinear(frame, fragmento, r):
     mejor_x_inicial = 0
     mejor_x_final = 0
     mejor_y_inicial = 0
@@ -16,7 +16,7 @@ def alinear(imagenFuente, frame, fragmento, r):
             for filas_crop in range(len(fragmento)):
                 for columnas_crop in range(len(fragmento[0])):
                     temp_sad = np.sum(abs(np.subtract(
-                        fragmento[filas_crop][columnas_crop], imagenFuente[filas+filas_crop][columnas+columnas_crop])))
+                        fragmento[filas_crop][columnas_crop], frame[filas+filas_crop][columnas+columnas_crop])))
             if filas == 0 and columnas == 0:
                 sad = temp_sad
             if temp_sad < sad:
@@ -44,9 +44,9 @@ def alinear(imagenFuente, frame, fragmento, r):
     movimiento_y = r[0]-mejor_y_inicial
 
     translation_matrix = np.float32(
-        [[1, 0, movimiento_x], [0, 1, movimiento_y]])
+        [[1, 0, movimiento_y], [0, 1, movimiento_x]])
     num_rows, num_cols = frame.shape[:2]
     img_translation = cv2.warpAffine(
-        imagenFuente, translation_matrix, (num_cols, num_rows))
+        frame, translation_matrix, (num_cols, num_rows))
 
     return img_translation
