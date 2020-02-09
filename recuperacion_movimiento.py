@@ -12,7 +12,7 @@ pathIn = 'joker.mp4'
 
 def process_video():
     sec = 0
-    frameRate = 0.2
+    frameRate = 1
     alpha = 0.9675
     beta = (1.0 - alpha)
     pathOut = 'video.avi'
@@ -35,6 +35,7 @@ def process_video():
     else:
         print('Archivo incorrecto')
     while success:
+        print(sec)
         sec = round(sec + frameRate, 2)
         vidcap.set(cv2.CAP_PROP_POS_MSEC, sec*1000)
         success, image = vidcap.read()

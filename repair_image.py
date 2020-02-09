@@ -8,7 +8,8 @@ def alinear(frame, fragmento, r):
     mejor_x_final = 0
     mejor_y_inicial = 0
     mejor_y_final = 0
-    sad = 0
+    sad = np.sum(abs(np.subtract(
+                        fragmento[0][0], frame[0][0])))
 
     find = False
     for filas in range(len(frame)-len(fragmento)):
@@ -17,8 +18,6 @@ def alinear(frame, fragmento, r):
                 for columnas_crop in range(len(fragmento[0])):
                     temp_sad = np.sum(abs(np.subtract(
                         fragmento[filas_crop][columnas_crop], frame[filas+filas_crop][columnas+columnas_crop])))
-            if filas == 0 and columnas == 0:
-                sad = temp_sad
             if temp_sad < sad:
                 sad = temp_sad
                 mejor_x_inicial = filas
@@ -28,17 +27,16 @@ def alinear(frame, fragmento, r):
                 if sad == 0:
                     find = True
                     break
-        print(str(filas))
         if find:
             break
 
-    print(sad)
-    print(str(mejor_x_inicial)+','+str(mejor_x_final))
-    print(str(mejor_y_inicial)+','+str(mejor_y_final))
-    print(r[1])
-    print(r[1]+r[3])
-    print(r[0])
-    print(r[0]+r[2])
+    print(f'sad:{sad}')
+    # print(str(mejor_x_inicial)+','+str(mejor_x_final))
+    # print(str(mejor_y_inicial)+','+str(mejor_y_final))
+    # print(r[1])
+    # print(r[1]+r[3])
+    # print(r[0])
+    # print(r[0]+r[2])
 
     movimiento_x = r[1]-mejor_x_inicial
     movimiento_y = r[0]-mejor_y_inicial
