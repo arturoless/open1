@@ -21,6 +21,7 @@ def openFile():
         initialdir="Users\Arturo Lessieur\Pictures", title="Seleccionar archivo")
     img = Image.open(imagenPath)
     img = img.resize((600, 300), Image.ANTIALIAS)
+    print(img)
     photoImage = ImageTk.PhotoImage(img)
     panel = Label(interface, image=photoImage)
     panel.grid(column=2, row=1, pady=2, columnspan=2)
