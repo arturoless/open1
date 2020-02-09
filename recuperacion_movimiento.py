@@ -40,7 +40,7 @@ def process_video():
         success, image = vidcap.read()
         if success:
             src2 = image
-            dst = np.uint8(alpha*(src1)+beta*(repair_image.alinear(src1, src2, imCrop, r)))
+            dst = np.uint8(alpha*(src1)+beta*(repair_image.alinear(src2, imCrop, r)))
             src1 = dst
             out.write(dst)
 
