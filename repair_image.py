@@ -17,7 +17,7 @@ def alinear(frame, fragmento, r):
                     temp_sad += np.power(np.sum(np.subtract(
                         fragmento[filas_crop][columnas_crop], frame[filas+filas_crop][columnas+columnas_crop])), 2)
             ssd = temp_sad/(len(fragmento)*len(fragmento[0]))
-            if find == False and mejor_ssd == 0:
+            if not find and mejor_ssd == 0:
                 mejor_ssd = ssd
             if ssd < mejor_ssd:
                 mejor_ssd = ssd
