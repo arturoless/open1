@@ -5,7 +5,7 @@ import numpy as np
 
 def alinear(frame, fragmento, r):
     find = False
-    ssdd = 0
+    mejor_ssd = 0
     mejor_x_inicial = 0
     mejor_y_inicial = 0
 
@@ -17,10 +17,11 @@ def alinear(frame, fragmento, r):
                     temp_sad += np.power(np.sum(np.subtract(
                         fragmento[filas_crop][columnas_crop], frame[filas+filas_crop][columnas+columnas_crop])), 2)
             ssd = temp_sad/(len(fragmento)*len(fragmento[0]))
-            if find == False and ssdd == 0:
-                ssdd = ssd
-            if ssd < ssdd:
-                ssdd = ssd
+            print(ssd)
+            if find == False and mejor_ssd == 0:
+                mejor_ssd = ssd
+            if ssd < mejor_ssd:
+                mejor_ssd = ssd
                 mejor_x_inicial = filas
                 mejor_y_inicial = columnas
                 if ssd == 0:
