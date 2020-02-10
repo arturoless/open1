@@ -17,7 +17,6 @@ def alinear(frame, fragmento, r):
                     temp_sad += np.power(np.sum(np.subtract(
                         fragmento[filas_crop][columnas_crop], frame[filas+filas_crop][columnas+columnas_crop])), 2)
             ssd = temp_sad/(len(fragmento)*len(fragmento[0]))
-            ssd = np.sqrt(ssd)
             if find == False and ssdd == 0:
                 ssdd = ssd
             if ssd < ssdd:
