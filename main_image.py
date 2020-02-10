@@ -5,9 +5,10 @@ from tkinter import *
 from tkinter import filedialog
 
 import repair_image
-import image1
+import recuperacion_fondo
 import recuperacion_movimiento
 
+pathIn = ''
 interface = Tk()
 
 
@@ -19,10 +20,20 @@ def openFile():
     interface.mainloop()
 
 
+def estabilizado():
+    global pathIn
+    recuperacion_fondo.process_video(pathIn)
+
+
+def movimiento():
+    global pathIn
+    recuperacion_movimiento.process_video(pathIn)
+
+
 Button(interface, text='Seleccionar video',
        command=openFile).grid(row=1, column=1)
 Button(interface, text='Procesar video',
-       command=image1.process_video()).grid(row=1, column=2)
+       command=estabilizado).grid(row=1, column=2)
 Button(interface, text='Procesar video con movimiento',
-       command=recuperacion_movimiento.process_video()).grid(row=1, column=3)
+       command=movimiento).grid(row=1, column=3)
 interface.mainloop()
