@@ -2,15 +2,13 @@ import cv2
 import numpy as np
 import time
 
-pathIn = 'joker.mp4'
-
 
 def process_video(pathIn):
     sec = 0
     frameRate = 0.2
     alpha = 0.9675
     beta = (1.0 - alpha)
-    pathOut = 'video.avi'
+    pathOut = 'video_sin_fondo.avi'
     fps = 15
     vidcap = cv2.VideoCapture(pathIn)
     vidcap.set(cv2.CAP_PROP_POS_MSEC, sec*1000)
@@ -26,6 +24,7 @@ def process_video(pathIn):
     else:
         print('Archivo incorrecto')
     while success:
+        print(f'sec: {sec}')
         sec = round(sec + frameRate, 2)
         vidcap.set(cv2.CAP_PROP_POS_MSEC, sec*1000)
         success, image = vidcap.read()

@@ -4,7 +4,6 @@ import numpy as np
 from tkinter import *
 from tkinter import filedialog
 
-import repair_image
 import recuperacion_fondo
 import recuperacion_movimiento
 
