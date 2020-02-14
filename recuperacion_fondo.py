@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import time
-
+from tkinter import messagebox
 
 def process_video(pathIn):
     sec = 0
@@ -36,3 +36,4 @@ def process_video(pathIn):
 
     out.release()
     print('Listo')
+    messagebox.showinfo("!LISTO!", "Video procesado éxitosamente")
