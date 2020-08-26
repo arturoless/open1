@@ -6,10 +6,9 @@ from tkinter import messagebox
 import repair_image as rp
 
 
-def process_video(pathIn):
+def process_video(pathIn, alpha):
     sec = 0
     frameRate = 0.2
-    alpha = 0.9675
     beta = (1.0 - alpha)
     pathOut = 'video_estable_sin_fondo.avi'
     fps = 5
